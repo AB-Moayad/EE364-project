@@ -4,7 +4,8 @@ public class Gate extends HaramTarget {
   private ArrayList<Organizer> organizers = new ArrayList<>();
   private ArrayList<Pathway> pathways = new ArrayList<>();
   private ArrayList<Pathway> pathwaysOut = new ArrayList<>();
-  //private String gateName
+  private Pathway connectedPathway;
+
 
     // Constructor
     public Gate(String gateName) {
@@ -12,7 +13,6 @@ public class Gate extends HaramTarget {
       //we may call that constructor here
        
         super(gateName);
-        //this.gateName = gateName;
     }
 
   public ArrayList<Organizer> getOrganizers() {
@@ -39,10 +39,17 @@ public class Gate extends HaramTarget {
     this.pathwaysOut = pathwaysOut;
   }
 
-////public String getGateName() {
-//  return gateName;
-//}
- //public void setGateName(String gateName) {
- //  this.gateName = gateName;
- //}
+  public void setConnectedPathway(Pathway pathway) {
+    this.connectedPathway = pathway;
+}
+
+  public Pathway getConnectedPathway() {
+  return connectedPathway;
+} 
+
+ @Override
+ public String toString() {
+     return getTargetName();
+ }
+
 }
