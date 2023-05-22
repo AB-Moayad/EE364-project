@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Visitor {
+public abstract class Visitor {
 private String navigation;
 private ArrayList<HaramTarget> Targets;
 private Direction direction;
@@ -11,6 +11,10 @@ public Visitor(String navigation,ArrayList<HaramTarget> target,Direction directi
     this.direction = Direction.in;
 }
 
+
+public void visit() {
+    System.out.println("Visitor class");
+}
 
 public int getDirection(){
     if (direction == Direction.in){
@@ -43,8 +47,8 @@ public void performSai(Msaa obj) {
 }
 
 public void performTawaf(Sahan obj) {
-
+    Sahan sahan = new Sahan();
+    sahan.getStage();
 }
-
 
 }
