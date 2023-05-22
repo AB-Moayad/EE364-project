@@ -6,6 +6,11 @@ public class Pilgram extends Visitor{
 
     }
 
+    @Override
+    public void visit() {
+        System.out.println("Pilgrim class");
+    }
 
 }
+
 
