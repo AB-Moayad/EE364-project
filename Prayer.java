@@ -4,5 +4,8 @@ public class Prayer extends Visitor {
 		super(null, null, null);
 	}
 
-
+	@Override
+	public void visit() {
+        System.out.println("Prayer class");
+    }
 }
