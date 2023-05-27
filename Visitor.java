@@ -41,13 +41,11 @@ public void pray(String mosqueName,String prayerName) {
     salah.setTime_of_prayer(prayerName);
 }
 
-public void performSai(Msaa obj) {
-    Msaa msaa = new Msaa();
+public void performSai(Msaa msaa) {
     msaa.getStage();
 }
 
-public void performTawaf(Sahan obj) {
-    Sahan sahan = new Sahan();
+public void performTawaf(Sahan sahan) {
     sahan.getStage();
 }
 
