@@ -1,16 +1,16 @@
+import java.util.Random;
+
 public class Msaa extends Pathway {
     private int stage;
 
-    public Msaa(){
-        super();
+    public Msaa(String msaa){
+        super(msaa);
     }
     public int getStage() {
         
-        for (int visitorStage = 0;visitorStage < 7;visitorStage++){
-            System.out.println("The visitor is in" + visitorStage + "Stage");
-            ++stage;
-        }
-
+        Random random = new Random();
+        this.stage = random.nextInt(7); // Generates a random stage between 0 and 6
+        System.out.println("now the Pilgrim is perfoming Saai and he is now in Stage " + stage);
         return stage;
 
     }
