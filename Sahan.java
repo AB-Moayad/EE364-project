@@ -1,16 +1,16 @@
+import java.util.Random;
+
 public class Sahan extends Pathway {
     private int stage;
     
-    public Sahan(){
-        super("Sahan");
+    public Sahan(String Sahan){
+        super(Sahan);
     }
 
     public int getStage() {
-        for (int visitorStage = 0;visitorStage < 7;visitorStage++){
-            System.out.println("The visitor is in" + visitorStage + "Stage");
-            ++stage;
-        }
-
+        Random random = new Random();
+        this.stage = random.nextInt(7); // Generates a random stage between 0 and 6
+        System.out.println("now the Pilgrim is perfoming Tawaf and he is now in Stage " + stage);
         return stage;
     }
 
