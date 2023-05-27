@@ -13,6 +13,7 @@ public class Gate extends HaramTarget {
       //we may call that constructor here
        
         super(gateName);
+        //this.gateName = gateName;
     }
 
   public ArrayList<Organizer> getOrganizers() {
@@ -47,6 +48,13 @@ public class Gate extends HaramTarget {
   return connectedPathway;
 } 
 
+
+////public String getGateName() {
+//  return gateName;
+//}
+ //public void setGateName(String gateName) {
+ //  this.gateName = gateName;
+ //}
  @Override
  public String toString() {
      return getTargetName();
