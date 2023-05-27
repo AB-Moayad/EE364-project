@@ -6,10 +6,11 @@ public class Haram {
     private ArrayList<PrayLocation> prayLocations = new ArrayList<PrayLocation>();
     private Pathway prayLocationPathway;
     private Pathway[] pathways;
-    private Visitor[] visitors;
+    //private Visitor[] visitors;
     private ArrayList<Gate> gates = new ArrayList<Gate>();
     private HaramFacility[] haramFacilities;
     private Outside[] outsides;
+
 
     static Random random = new Random();
 
@@ -20,7 +21,7 @@ public class Haram {
         haram.connectGatesToPathways();
         haram.createPrayLocationPathway();
         haram.createPrayLocations(7);
-        haram.simulateVisitors(10);
+        haram.simulateVisitors(3);
     }
 
     private void generateGates() {
@@ -55,16 +56,28 @@ public class Haram {
 
     private void simulateVisitors(int numVisitors) {
         for (int i = 0; i < numVisitors; i++) {
-            // Visitor visitor =
-            generateRandomVisitor();
+            Visitor visitor =generateRandomVisitor();
             Gate randomGate = getRandomGate();
             Pathway connectedPathway = randomGate.getConnectedPathway();
-
             PrayLocation prayLocation = getRandomPrayLocation();
             Pathway prayLocationPathway = prayLocation.getPathway();
-            System.out.println("Visitor " + (i + 1) + " entered through " + randomGate +
-                    " and reached " + connectedPathway + " then moved to " + prayLocationPathway +
-                    " and reached " + prayLocation);
+            Sahan sahan = new Sahan("Sahan");
+            Msaa msaa = new Msaa("Msaa");
+            
+            
+            if (visitor instanceof Pilgram){
+                System.out.println("Pilgrim " + (i + 1) + " entered through " + randomGate +
+                " and reached " + connectedPathway + " then moved to Pray Location in " + prayLocationPathway +
+                " and reached " + prayLocation);
+                visitor.performTawaf(sahan);
+                visitor.performSai(msaa);
+                
+            }
+            else if (visitor instanceof Prayer){
+                System.out.println("Prayer " + (i + 1) + " entered through " + randomGate +
+                " and reached " + connectedPathway + " then moved to Pray Location in " + prayLocationPathway +
+                " and reached " + prayLocation);
+            }
         }
     }
 
