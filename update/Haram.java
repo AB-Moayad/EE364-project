@@ -1,0 +1,334 @@
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class Haram {
+    // remove static modifiers? instantiate haram in main and refer to arraylists from there?
+    public ArrayList<PrayLocation> prayLocations = new ArrayList<>();
+    public ArrayList<Pathway> pathways = new ArrayList<>(); 
+    public ArrayList<Pathway> outerPathways = new ArrayList<>();
+    public Sahan sahan;
+    public ArrayList<Masaa> masaaLanes = new ArrayList<>();
+    public ArrayList<Building> buildings = new ArrayList<>();
+    public ArrayList<Visitor> visitors = new ArrayList<>();
+    public ArrayList<Gate> gates = new ArrayList<>();
+    public ArrayList<HaramFacility> facilities = new ArrayList<>();
+    public int timeElapsedSecs;
+    public 
+    
+    static Random random = new Random();
+
+    Haram() {
+        String[] defaultPrayLocationsNames = {"Area 1", "Area 2", "Area 3", "Area 4", "Area 5",
+            "Area 6", "Area 7", "Area 8", "Area 9", "Area 10",};
+        String[] defaultOuterPathways = {"Pathway 1", "Pathway 2", "Pathway 3", "Pathway 4",
+        "Pathway 5","Pathway 6"};
+        String[] defaultInnerPathways = {"Pathway 7", "Pathway 8", "Pathway 9", "Pathway 10",
+        "Pathway 11","Pathway 12", "Pathway 13"};
+        String[] defaultGateNames = {"King Fahd", "Umra", "Fateh", "King Abdulaziz"};
+        String[] defaultBuildingNames = {"King Fahd Extension", "Saudi Portico", "Massa"};
+
+        /*
+         * ****** Naming guide *******:
+         * 
+         * Building 0 =  King Fahd Extension
+         * Building 1 = Saudi Portico
+         * Building 2 = Masaa building
+         * 
+         * 
+         * Outer pathways are the pathways numbered from 1 to 6; contained in the ArrayList outerPathways; with respective indices 0-5
+         * 
+         * Innter pathways are the pathways numbered from 7 to 13; contained in the ArrayList pathways; with respective indices 0-6
+         * 
+         * 
+         * ***** NOTES *****
+         * The class 'Gate' has not been used yet.
+         * 
+         * 
+         * To set the number of visitors to be simulated, adjust the variable "maxNumVisitors" within main.
+         * To determine the type of visitors to be spawned, adjust the determinator in the switch statement in the method "spawnVisitor"
+         */
+
+
+        /* For the following initializatoins refer to the Mosque diagram; 'Mosque Map.pptx' */
+
+        // initialize pray locations
+        for (String prayLocationName: defaultPrayLocationsNames) {
+            prayLocations.add(new PrayLocation(prayLocationName, 100)); // 100 visitor capacity for testing
+        }
+
+        // initialize buildings
+        for (String buildingName: defaultBuildingNames) {
+            buildings.add(new Building(buildingName, 100));
+        }
+
+        // initialize outer pathways
+        for (String pathwayName: defaultOuterPathways) {
+            outerPathways.add(new Pathway(pathwayName, 100));
+        }
+
+        // initialize some inner pathways
+        for (String pathwayName: defaultInnerPathways) {
+            pathways.add(new Pathway(pathwayName, 100));
+        }
+
+        // initialize Massa objects
+        for (int floorCount = 1; floorCount <= 1; floorCount++) {
+            masaaLanes.add(new Masaa("Safa-Marwa_floor" + floorCount, 100));
+            masaaLanes.add(new Masaa("Marwa-Safa_floor" + floorCount, 100));
+        }
+
+        // initialize Tawaf Sahan
+        sahan = new Sahan("Tawaf Sahan", 100);
+
+        /* INTERSECTIONS */
+        
+        // pray location intesections initialization
+        Commutable[] prayLocation1Intersections = {buildings.get(0)};
+        prayLocations.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation1Intersections)));
+        
+        Commutable[] prayLocation2Intersections = {buildings.get(0)};
+        prayLocations.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation2Intersections)));
+        
+        Commutable[] prayLocation3Intersections = {buildings.get(1)};
+        prayLocations.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation3Intersections)));
+        Commutable[] prayLocation4Intersections = {buildings.get(1)};
+        prayLocations.get(3).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation4Intersections)));
+        Commutable[] prayLocation5Intersections = {buildings.get(1)};
+        prayLocations.get(4).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation5Intersections)));
+        Commutable[] prayLocation6Intersections = {buildings.get(1)};
+        prayLocations.get(5).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation6Intersections)));
+        Commutable[] prayLocation7Intersections = {buildings.get(1)};
+        prayLocations.get(6).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation7Intersections)));
+        Commutable[] prayLocation8Intersections = {buildings.get(1)};
+        prayLocations.get(7).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation8Intersections)));
+        Commutable[] prayLocation9Intersections = {buildings.get(1)};
+        prayLocations.get(8).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation9Intersections)));
+        Commutable[] prayLocation10Intersections = {buildings.get(1)};
+        prayLocations.get(9).setIntersections(new ArrayList<Commutable>(Arrays.asList(prayLocation10Intersections)));
+
+        
+
+        // outer pathways intersections initialization *****
+        Commutable[] pathway1Intersections = {buildings.get(1)};
+        outerPathways.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway1Intersections)));
+        
+        Commutable[] pathway2Intersections = {buildings.get(1)};
+        outerPathways.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway2Intersections)));
+        
+        Commutable[] pathway3Intersections = {buildings.get(0)};
+        outerPathways.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway3Intersections)));
+        
+        Commutable[] pathway4Intersections = {buildings.get(1)};
+        outerPathways.get(3).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway4Intersections)));
+        
+        Commutable[] pathway5Intersections = {buildings.get(1)};
+        outerPathways.get(4).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway5Intersections)));
+        
+        Commutable[] pathway6Intersections = {buildings.get(1)};
+        outerPathways.get(5).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway6Intersections)));
+        
+        // inner pathways intersections initialization *****
+        Commutable[] pathway7Intersections = {buildings.get(1), sahan};
+        pathways.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway7Intersections)));
+        
+        Commutable[] pathway8Intersections = {buildings.get(1), sahan};
+        pathways.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway8Intersections)));
+        
+        Commutable[] pathway9Intersections = {buildings.get(1), sahan};
+        pathways.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway9Intersections)));
+        
+        Commutable[] pathway10Intersections = {buildings.get(1), sahan};
+        pathways.get(3).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway10Intersections)));
+        
+        Commutable[] pathway11Intersections = {buildings.get(1), sahan};
+        pathways.get(4).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway11Intersections)));
+        
+        Commutable[] pathway12Intersections = {buildings.get(1), sahan};
+        pathways.get(5).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway12Intersections)));
+        
+        Commutable[] pathway13Intersections = {buildings.get(1), buildings.get(2), sahan}; // , masaaLanes.get(0), masaaLanes.get(1)
+        pathways.get(6).setIntersections(new ArrayList<Commutable>(Arrays.asList(pathway13Intersections)));
+
+
+        // Sahan path intersections initialization
+        int i = 0;
+        ArrayList<Commutable> sahanIntersections = new ArrayList<>();
+        for (Pathway tawafPath: sahan.tawafPaths) {
+            Commutable[] intersections = {sahan, buildings.get(1)};
+            pathways.get(i).setIntersections(new ArrayList<Commutable>(Arrays.asList(intersections)));
+            sahanIntersections.add(tawafPath);
+            tawafPath.setIntersections(new ArrayList<Commutable>(Arrays.asList(intersections)));
+            i++;
+        }
+        sahan.setIntersections(sahanIntersections);
+
+        for (Pathway pathway: pathways) {
+            sahan.getIntersections().add(pathway);
+        }
+
+
+        
+
+        // building intersections initialization
+        Commutable[] kingFahdExtIntersections = {buildings.get(1), prayLocations.get(0), prayLocations.get(1)};
+        buildings.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(kingFahdExtIntersections)));
+        
+        Commutable[] saudiPorticoIntersections = {buildings.get(0), prayLocations.get(2), prayLocations.get(3), prayLocations.get(4), prayLocations.get(5),
+            prayLocations.get(6), prayLocations.get(7), prayLocations.get(8), prayLocations.get(9),
+            outerPathways.get(0), outerPathways.get(1), outerPathways.get(3), outerPathways.get(4), outerPathways.get(5),
+            pathways.get(0), pathways.get(1), pathways.get(2), pathways.get(3), pathways.get(4), pathways.get(5), pathways.get(6), buildings.get(2)};
+        buildings.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(saudiPorticoIntersections)));
+
+        Commutable[] masaaIntersections = {masaaLanes.get(0), masaaLanes.get(1), buildings.get(1)};
+        buildings.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(masaaIntersections)));
+
+        // Massa lanes intersections initialization
+        Commutable[] massaLane1Intersections = {buildings.get(1), buildings.get(2), masaaLanes.get(1), pathways.get(6)};
+        masaaLanes.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(massaLane1Intersections)));
+        
+        Commutable[] massaLane2Intersections = {buildings.get(1), buildings.get(2), masaaLanes.get(0), pathways.get(6)};
+        masaaLanes.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(massaLane2Intersections)));
+    }
+
+    public static void main(String[] args) {
+        Haram haram = new Haram();
+
+        int maxNumVisitors = 2; // Determine the number of visitors simulated
+        while (true) {
+            // spawn new visitors; prayers and pilgrims
+            for (Pathway pathway: haram.outerPathways) {
+                if (haram.visitors.size() < maxNumVisitors) {
+                    haram.visitors.add(haram.spawnVisitor(pathway));
+                    // pathway.incrementCurrentVisitors();
+                }
+            }
+
+            
+
+            // move visitors
+            haram.moveVisitors(50);  // argument is visitor speed, units per second, default is 1
+
+            // TODO: organizers make decisions
+
+
+            System.out.println(String.format("---- Time: %02d:%02d | Visitors: %d ----", haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
+            System.out.print("    ");
+            haram.printVisitorsStatus();
+            haram.timeElapsedSecs++;
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public ArrayList<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    // public void exitVisitor(Visitor visitor) {
+    //     if (visitor.arrangeExit()) {
+    //         visitors.remove(visitor);
+    //     }
+    // }
+    
+    public void moveVisitors(int speed) {
+        for (Visitor visitor: visitors) {
+            visitor.move(speed); // argument is a movement speed multiplier; default: 1
+        }
+
+        ArrayList<Visitor> toBeRemoved = new ArrayList<>();
+        for (Visitor visitor: visitors) {
+            if (visitor.completedPurpose && !toBeRemoved.contains(visitor)) {
+                toBeRemoved.add(visitor);
+            }
+        }
+
+        for (int i = 0; !toBeRemoved.isEmpty() && (i < toBeRemoved.size()); i++) {
+            if (toBeRemoved.get(i).completedPurpose && !toBeRemoved.get(i).hasNextRouteComponent()) {
+                visitors.remove(toBeRemoved.get(i));
+                System.out.println("    -removed visitor#" + toBeRemoved.get(i).getId());
+                toBeRemoved.remove(toBeRemoved.get(i));
+            }
+        }
+
+    }
+
+    public PrayLocation findVacantPrayLocation() {
+        for(PrayLocation location: prayLocations) {
+            if (location.hasSpace()) {
+                return location;
+            }
+        }
+        return null;
+    }
+
+    public void printVisitorsStatus() {
+        for (Visitor visitor: visitors) {
+            System.out.println(visitor.returnStatus() + " - Destination:: " + 
+            visitor.routeComponents.get(visitor.routeComponents.isEmpty()? 0 : visitor.routeComponents.size() - 1));
+            System.out.print(String.format("    Progress: %d/%d", visitor.progressInCurrentLocation, visitor.getCurrentLocation().getDuration()));
+            System.out.println(String.format("    Status: %s", visitor.getStatus().toString()));
+            System.out.print("    Route:: ");
+            for (Commutable routeComponent: visitor.routeComponents) {
+                System.out.print(routeComponent.getName() + ", ");
+            }
+            System.out.println("");
+        }
+    }
+
+    public Visitor spawnVisitor(Pathway pathway) {
+        int visitorTypeDeterminator = random.nextInt(2); // returns either 0 for prayer, or 1 for pilgrim
+
+        switch (visitorTypeDeterminator) {
+            case 0:
+                Prayer newPrayer = new Prayer(pathway);
+                newPrayer.setCurrentPathway(pathway);
+                newPrayer.assignRoute(findVacantPrayLocation());
+                return newPrayer;
+            case 1: 
+                Pilgrim newPilgrim = new Pilgrim(pathway);
+                assignRouteForPilgrim(newPilgrim);
+                return newPilgrim;
+        }
+        return null;
+    }
+    
+    public void assignRouteForPilgrim(Pilgrim pilgrim) {
+        ArrayList<Commutable> routeToTawaf = new ArrayList<>();
+        ArrayList<Commutable> routeToPrayLocation = new ArrayList<>();
+        ArrayList<Commutable> routeToMasaa = new ArrayList<>();
+        ArrayList<Commutable> exitRoute = new ArrayList<>();
+
+        routeToTawaf = pilgrim.findRoute(pilgrim.getCurrentLocation(), sahan.findVacantTawafPath());
+        routeToPrayLocation = pilgrim.findRoute(routeToTawaf.get(routeToTawaf.size() - 1), findVacantPrayLocation());
+        // System.out.println(routeToTawaf.get(routeToTawaf.size() - 1));
+        // System.out.println(findVacantPrayLocation());
+        // System.out.println(routeToPrayLocation);
+        routeToMasaa = pilgrim.findRoute(routeToPrayLocation.get(routeToPrayLocation.size() - 1), masaaLanes.get(0));
+        
+        exitRoute = pilgrim.findRoute(routeToMasaa.get(routeToMasaa.size() - 1), outerPathways.get(0));
+        // System.out.println("###Exit Route" + exitRoute);
+        
+        ArrayList<Commutable> assembledRoute = new ArrayList<>();
+        assembledRoute.addAll(routeToTawaf);
+
+        routeToPrayLocation.remove(0);
+        assembledRoute.addAll(routeToPrayLocation);
+
+        routeToMasaa.remove(0);
+        assembledRoute.addAll(routeToMasaa);
+
+        exitRoute.remove(0);
+        assembledRoute.addAll(exitRoute);
+
+        pilgrim.routeComponents = assembledRoute;
+    }
+
+}
