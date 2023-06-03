@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -86,58 +87,95 @@ public class MyApp extends Application {
         area10View.setPreserveRatio(true);
         area10View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway1 = new Image("images/outerPathway3.png");
-        // ImageView pathway1View = new ImageView(pathway1);
-        // pathway1View.setPreserveRatio(true);
-        // pathway1View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway1 = new Image("images/outerPathway1B.png");
+        ImageView pathway1View = new ImageView(pathway1);
+        pathway1View.setPreserveRatio(true);
+        pathway1View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway2 = new Image("images/outerPathway3.png");
-        // ImageView pathway2View = new ImageView(pathway2);
-        // pathway2View.setPreserveRatio(true);
-        // pathway2View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway2 = new Image("images/outerPathway2B.png");
+        ImageView pathway2View = new ImageView(pathway2);
+        pathway2View.setPreserveRatio(true);
+        pathway2View.fitHeightProperty().bind(stackPane.heightProperty());
 
-        Image pathway3 = new Image("images/outerPathway3.png");
+        Image pathway3 = new Image("images/outerPathway3B.png");
         ImageView pathway3View = new ImageView(pathway3);
         pathway3View.setPreserveRatio(true);
         pathway3View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway4 = new Image("images/outerPathway3.png");
-        // ImageView pathway4View = new ImageView(pathway4);
-        // pathway4View.setPreserveRatio(true);
-        // pathway4View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway4 = new Image("images/outerPathway4B.png");
+        ImageView pathway4View = new ImageView(pathway4);
+        pathway4View.setPreserveRatio(true);
+        pathway4View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway5 = new Image("images/outerPathway3.png");
-        // ImageView pathway5View = new ImageView(pathway5);
-        // pathway5View.setPreserveRatio(true);
-        // pathway5View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway5 = new Image("images/outerPathway5B.png");
+        ImageView pathway5View = new ImageView(pathway5);
+        pathway5View.setPreserveRatio(true);
+        pathway5View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway6 = new Image("images/outerPathway3.png");
-        // ImageView pathway6View = new ImageView(pathway6);
-        // pathway6View.setPreserveRatio(true);
-        // pathway6View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway6 = new Image("images/outerPathway6B.png");
+        ImageView pathway6View = new ImageView(pathway6);
+        pathway6View.setPreserveRatio(true);
+        pathway6View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway7 = new Image("images/outerPathway3.png");
-        // ImageView pathway7View = new ImageView(pathway7);
-        // pathway7View.setPreserveRatio(true);
-        // pathway7View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway7 = new Image("images/innerPathway7B.png");
+        ImageView pathway7View = new ImageView(pathway7);
+        pathway7View.setPreserveRatio(true);
+        pathway7View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway8 = new Image("images/outerPathway3.png");
-        // ImageView pathway8View = new ImageView(pathway8);
-        // pathway8View.setPreserveRatio(true);
-        // pathway8View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway8 = new Image("images/innerPathway8B.png");
+        ImageView pathway8View = new ImageView(pathway8);
+        pathway8View.setPreserveRatio(true);
+        pathway8View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway9 = new Image("images/outerPathway3.png");
-        // ImageView pathway9View = new ImageView(pathway9);
-        // pathway9View.setPreserveRatio(true);
-        // pathway9View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway9 = new Image("images/innerPathway9B.png");
+        ImageView pathway9View = new ImageView(pathway9);
+        pathway9View.setPreserveRatio(true);
+        pathway9View.fitHeightProperty().bind(stackPane.heightProperty());
         
-        // Image pathway10 = new Image("images/outerPathway3.png");
-        // ImageView pathway10View = new ImageView(pathway10);
-        // pathway10View.setPreserveRatio(true);
-        // pathway10View.fitHeightProperty().bind(stackPane.heightProperty());
+        Image pathway10 = new Image("images/innerPathway10B.png");
+        ImageView pathway10View = new ImageView(pathway10);
+        pathway10View.setPreserveRatio(true);
+        pathway10View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image pathway11 = new Image("images/innerPathway11B.png");
+        ImageView pathway11View = new ImageView(pathway11);
+        pathway11View.setPreserveRatio(true);
+        pathway11View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image pathway12 = new Image("images/innerPathway12B.png");
+        ImageView pathway12View = new ImageView(pathway12);
+        pathway12View.setPreserveRatio(true);
+        pathway12View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image pathway13 = new Image("images/innerPathway13B.png");
+        ImageView pathway13View = new ImageView(pathway13);
+        pathway13View.setPreserveRatio(true);
+        pathway13View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        
+        Image massa0 = new Image("images/massa0B.png");
+        ImageView massa0View = new ImageView(massa0);
+        massa0View.setPreserveRatio(true);
+        massa0View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image massa1 = new Image("images/massa1B.png");
+        ImageView massa1View = new ImageView(massa1);
+        massa1View.setPreserveRatio(true);
+        massa1View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image massa2 = new Image("images/massa2B.png");
+        ImageView massa2View = new ImageView(massa2);
+        massa2View.setPreserveRatio(true);
+        massa2View.fitHeightProperty().bind(stackPane.heightProperty());
 
-        stackPane.getChildren().addAll(haramBodyView, area1View, area2View, area3View, area4View, area5View, area6View, area7View, area8View,
-        area9View, area10View, pathway3View);
+        Image sahan = new Image("images/wholeSahan.png");
+        ImageView sahanView = new ImageView(sahan);
+        sahanView.setPreserveRatio(true);
+        sahanView.fitHeightProperty().bind(stackPane.heightProperty());
+
+        stackPane.getChildren().addAll(area1View, area2View, area3View, area4View, area5View, area6View, area7View, area8View,
+        area9View, area10View, pathway1View, pathway2View, pathway3View, pathway4View, pathway5View, pathway6View, pathway7View,
+        pathway8View, pathway9View, pathway10View, pathway11View, pathway12View, pathway13View, massa0View, massa1View, massa2View, sahanView, haramBodyView);
 
         // Add the StackPane to the AnchorPane
         AnchorPane.setTopAnchor(stackPane, 0.0);
@@ -167,7 +205,6 @@ public class MyApp extends Application {
         timeElapsedLabel.setFont(new Font(16));
         Label timeElapsedLabelValue = new Label("00:00");
         timeElapsedLabelValue.setFont(new Font(16));
-
         
 
 
@@ -198,6 +235,14 @@ public class MyApp extends Application {
 
         // Add the AnchorPanes to the SplitPane
         splitPane.getItems().addAll(anchorPane1, anchorPane2);
+
+        ColorAdjust colorAdjustBlueToRed = new ColorAdjust();
+        colorAdjustBlueToRed.setHue(0.8);
+        area1View.setEffect(colorAdjustBlueToRed); // changes color to red
+        
+        ColorAdjust colorAdjustBlueToYellow = new ColorAdjust();
+        colorAdjustBlueToYellow.setHue(0.999);
+        area2View.setEffect(colorAdjustBlueToYellow); // changes color to red
 
         // Create the Scene and set it on the Stage
         Scene scene = new Scene(splitPane, 1080, 720);
