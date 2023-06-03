@@ -28,10 +28,6 @@ public class PrayLocation extends HaramTarget {
         throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
     }
 
-    @Override
-    public int setCapacity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCapacity'");
-    }
+
     
 }

@@ -12,10 +12,6 @@ public class Building extends HaramTarget {
         return 50;
     }
 
-    public int getCapacity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCapacity'");
-    }
 
     public ArrayList<Commutable> getIntersections() {
         return intersections;
@@ -25,11 +21,6 @@ public class Building extends HaramTarget {
         setIntersections(intersections);
     }
 
-
-    public int setCapacity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCapacity'");
-    }
 
 
     @Override

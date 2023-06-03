@@ -10,6 +10,14 @@ public abstract class HaramTarget implements Commutable {
     public int getCapacity() {
         return capacity;
     }
+    
+    public int getAvailableCapacity() {
+        return (capacity - numberOfCurrentVisitors);
+    }
+    public double getAvailableCapacityRatio() {
+        return (double) numberOfCurrentVisitors / capacity;
+    }
+    
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
@@ -39,4 +47,18 @@ public abstract class HaramTarget implements Commutable {
         // for the interface
         return TargetName;
     }
+
+    public void incrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors + 1) <= capacity) {
+            this.numberOfCurrentVisitors++;
+        }
+    }
+    
+    public void decrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors - 1) >= 0) {
+            this.numberOfCurrentVisitors--;
+        }
+    }
+
+    
   }

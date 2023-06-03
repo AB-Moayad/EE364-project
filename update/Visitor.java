@@ -77,8 +77,10 @@ public abstract class Visitor {
 
     public void continueRoute() {
         if (hasNextRouteComponent()) {
+            currentLocation.decrementCurrentVisitors();
             currentRouteComponentIndex++;
             this.currentLocation = routeComponents.get(currentRouteComponentIndex);
+            currentLocation.incrementCurrentVisitors();
             progressInCurrentLocation = 0;
         }
         else {

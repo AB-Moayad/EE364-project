@@ -15,6 +15,25 @@ public class Sahan extends HaramTarget {
         }
     }
 
+    @Override
+    public int getAvailableCapacity() {
+        int aggregatedAvailableCapacity = getCapacity();
+
+        for (Pathway tawafPath: tawafPaths) {
+            aggregatedAvailableCapacity -= tawafPath.getNumberOfCurrentVisitors();
+        }
+        return aggregatedAvailableCapacity;
+    }
+
+    @Override
+    public double getAvailableCapacityRatio() {
+        int aggregatedNumberOfCurrentVisitors = 0;
+        for (Pathway tawafPath: tawafPaths) {
+            aggregatedNumberOfCurrentVisitors += tawafPath.getNumberOfCurrentVisitors();
+        }
+        return (double) aggregatedNumberOfCurrentVisitors / getCapacity();
+    }
+
 
     public Commutable findVacantTawafPath() {
         for (Commutable tawafPath: tawafPaths) {

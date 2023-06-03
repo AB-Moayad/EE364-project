@@ -195,34 +195,48 @@ public class Haram {
 
     public static void main(String[] args) {
         Haram haram = new Haram();
+        // boolean maxNumReached = false;
+        int maxNumVisitors = 200; // Determine the number of visitors simulated
+        int visitorsSpawned = 0;
+        int prayersSpawned = 0;
+        int pilgrimsSpawned = 0;
 
-        int maxNumVisitors = 2; // Determine the number of visitors simulated
         while (true) {
+
             // spawn new visitors; prayers and pilgrims
             for (Pathway pathway: haram.outerPathways) {
-                if (haram.visitors.size() < maxNumVisitors) {
+                if ((haram.visitors.size() < maxNumVisitors) && (visitorsSpawned < maxNumVisitors)) {
                     haram.visitors.add(haram.spawnVisitor(pathway));
+                    haram.visitors.get(haram.visitors.size() - 1).getCurrentLocation().incrementCurrentVisitors();
+                    if (haram.visitors.get(haram.visitors.size() - 1) instanceof Prayer) prayersSpawned++; else pilgrimsSpawned++;
+                    visitorsSpawned++;
                     // pathway.incrementCurrentVisitors();
                 }
             }
 
-            
-
             // move visitors
-            haram.moveVisitors(50);  // argument is visitor speed, units per second, default is 1
+            haram.moveVisitors(50);  // argument is visitor speed, in 'duration units per second', default is 1
 
             // TODO: organizers make decisions
 
 
             System.out.println(String.format("---- Time: %02d:%02d | Visitors: %d ----", haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
-            System.out.print("    ");
+            // System.out.print("    ");
             haram.printVisitorsStatus();
+            haram.printCapacities();
             haram.timeElapsedSecs++;
 
+            // Control the speed of the simulation
             try {
-                Thread.sleep(1000);
+                Thread.sleep(0); // adjust argument to control simulation speed
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+
+            if ((visitorsSpawned >= maxNumVisitors) && (haram.visitors.isEmpty())) {
+                System.out.println(String.format("Finished - Time: %02d:%02d | All %d visitors have exited.\n %d prayers\n %d pilgrims",
+                haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, maxNumVisitors, prayersSpawned, pilgrimsSpawned));
+                break;
             }
         }
     }
@@ -243,6 +257,7 @@ public class Haram {
             visitor.move(speed); // argument is a movement speed multiplier; default: 1
         }
 
+        // The two loops below are responsible for removing visitors
         ArrayList<Visitor> toBeRemoved = new ArrayList<>();
         for (Visitor visitor: visitors) {
             if (visitor.completedPurpose && !toBeRemoved.contains(visitor)) {
@@ -252,6 +267,7 @@ public class Haram {
 
         for (int i = 0; !toBeRemoved.isEmpty() && (i < toBeRemoved.size()); i++) {
             if (toBeRemoved.get(i).completedPurpose && !toBeRemoved.get(i).hasNextRouteComponent()) {
+                toBeRemoved.get(i).getCurrentLocation().decrementCurrentVisitors();
                 visitors.remove(toBeRemoved.get(i));
                 System.out.println("    -removed visitor#" + toBeRemoved.get(i).getId());
                 toBeRemoved.remove(toBeRemoved.get(i));
@@ -271,16 +287,48 @@ public class Haram {
 
     public void printVisitorsStatus() {
         for (Visitor visitor: visitors) {
-            System.out.println(visitor.returnStatus() + " - Destination:: " + 
+            System.out.println(visitor.returnStatus() + " - Destination: " + 
             visitor.routeComponents.get(visitor.routeComponents.isEmpty()? 0 : visitor.routeComponents.size() - 1));
             System.out.print(String.format("    Progress: %d/%d", visitor.progressInCurrentLocation, visitor.getCurrentLocation().getDuration()));
             System.out.println(String.format("    Status: %s", visitor.getStatus().toString()));
-            System.out.print("    Route:: ");
+            System.out.print("    Route: ");
             for (Commutable routeComponent: visitor.routeComponents) {
                 System.out.print(routeComponent.getName() + ", ");
             }
             System.out.println("");
         }
+    }
+
+    public void printCapacities() {    
+        System.out.print("Current outter pathways capacities\n\t");
+        for (Commutable outerPathway: outerPathways) {
+            System.out.print(String.format("%s: %f; ", outerPathway.getName(), outerPathway.getAvailableCapacityRatio()));
+        }
+        
+        System.out.print("\nCurrent building capacities\n\t");
+        for (Commutable building: buildings) {
+            System.out.print(String.format("%s: %f; ", building.getName(), building.getAvailableCapacityRatio()));
+        }
+        
+        System.out.print("\nCurrent PrayLocation capacities\n\t");
+        for (Commutable praylocation: prayLocations) {
+            System.out.print(String.format("%s: %f; ", praylocation.getName(), praylocation.getAvailableCapacityRatio()));
+        }
+        
+        System.out.print("\nCurrent inner Pathway capacities\n\t");
+        for (Commutable innerPathway: pathways) {
+            System.out.print(String.format("%s: %f; ", innerPathway.getName(), innerPathway.getAvailableCapacityRatio()));
+        }
+        
+        System.out.print("\nCurrent Sahan capacities\n\t");
+        System.out.print(String.format("%s: %f; ", sahan.getName(), sahan.getAvailableCapacityRatio()));
+
+        System.out.print("\nCurrent Massa lanes capacities\n\t");
+        for (Commutable lane: masaaLanes) {
+            System.out.print(String.format("%s: %f; ", lane.getName(), lane.getAvailableCapacityRatio()));
+        }
+
+        System.out.println();
     }
 
     public Visitor spawnVisitor(Pathway pathway) {
@@ -319,7 +367,7 @@ public class Haram {
         ArrayList<Commutable> assembledRoute = new ArrayList<>();
         assembledRoute.addAll(routeToTawaf);
 
-        routeToPrayLocation.remove(0);
+        routeToPrayLocation.remove(0); // remove duplication 
         assembledRoute.addAll(routeToPrayLocation);
 
         routeToMasaa.remove(0);

@@ -4,7 +4,7 @@ public class Pathway implements Commutable {
     private String name;
     private int length;
     private int capacity;
-    private int currentVisitors;
+    private int numberOfCurrentVisitors;
     private ArrayList<HaramTarget> r_locations = new ArrayList<>();
     private ArrayList<HaramTarget> l_locations = new ArrayList<>();
     private ArrayList<Commutable> intersections = new ArrayList<>();
@@ -32,12 +32,20 @@ public class Pathway implements Commutable {
         return capacity;
     }
 
+    public int getAvailableCapacity() {
+        return (capacity - numberOfCurrentVisitors);
+    }
+
+    public double getAvailableCapacityRatio() {
+        return (double) numberOfCurrentVisitors / capacity;
+    }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     public boolean hasSpace() {
-        return (currentVisitors < capacity);
+        return (numberOfCurrentVisitors < capacity);
     }
 
     public ArrayList<HaramTarget> getRLocations() {
@@ -88,31 +96,23 @@ public class Pathway implements Commutable {
         this.floor = floor;
     }
 
-    public int getCurrentVisitors() {
-        return currentVisitors;
+    public int getNumberOfCurrentVisitors() {
+        return numberOfCurrentVisitors;
     }
 
-    public void setCurrentVisitors(int currentVisitors) {
-        this.currentVisitors = currentVisitors;
+    public void setNumberOfCurrentVisitors(int currentVisitors) {
+        this.numberOfCurrentVisitors = currentVisitors;
     }
 
-    public boolean incrementCurrentVisitors() {
-        if ((currentVisitors + 1) <= capacity) {
-            this.currentVisitors++;
-            return true;
-        }
-        else {
-            return false;
+    public void incrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors + 1) <= capacity) {
+            this.numberOfCurrentVisitors++;
         }
     }
 
-    public boolean decrementCurrentVisitors() {
-        if ((currentVisitors - 1) >= 0) {
-            this.currentVisitors--;
-            return true;
-        }
-        else {
-            return false;
+    public void decrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors - 1) >= 0) {
+            this.numberOfCurrentVisitors--;
         }
     }
 
@@ -121,10 +121,6 @@ public class Pathway implements Commutable {
         throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
     }
 
-    public int setCapacity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCapacity'");
-    }
 
     public String toString() {
         return this.name;
