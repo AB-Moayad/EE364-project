@@ -95,7 +95,7 @@ public class Haram {
         }
 
         // initialize Tawaf Sahan
-        sahan = new Sahan("Tawaf Sahan", 2);
+        sahan = new Sahan("Tawaf Sahan", 7 * 2);
 
         /* INTERSECTIONS */
 
@@ -198,11 +198,10 @@ public class Haram {
         buildings.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(masaaIntersections)));
 
         // Massa lanes intersections initialization
-        Commutable[] massaLane1Intersections = { buildings.get(1), buildings.get(2), masaaLanes.get(1),
-                pathways.get(6) };
+        Commutable[] massaLane1Intersections = {masaaLanes.get(1), pathways.get(6) };
         masaaLanes.get(0).setIntersections(new ArrayList<Commutable>(Arrays.asList(massaLane1Intersections)));
 
-        Commutable[] massaLane2Intersections = { buildings.get(1), buildings.get(2), masaaLanes.get(0),
+        Commutable[] massaLane2Intersections = { buildings.get(2), masaaLanes.get(0),
                 pathways.get(6) };
         masaaLanes.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(massaLane2Intersections)));
     }
@@ -235,7 +234,7 @@ public class Haram {
                 }
 
                 // move visitors
-                haram.moveVisitors(50); // argument is visitor speed, in 'duration units per second', default is 1
+                haram.moveVisitors(1); // argument is visitor speed, in 'duration units per second', default is 1
 
                 // TODO: organizers make decisions
 
@@ -418,12 +417,18 @@ public class Haram {
     }
 
     public PrayLocation findVacantPrayLocation() {
-        for (PrayLocation location : prayLocations) {
-            if (location.hasSpace()) {
-                return location;
-            }
+        // for (PrayLocation location : prayLocations) {
+        //     if (location.hasSpace()) {
+        //         return location;
+        //     }
+        // }
+        // return null;
+
+        PrayLocation vacantLocationCandidate = prayLocations.get(random.nextInt(prayLocations.size()));
+        while (!vacantLocationCandidate.hasSpace()) {
+            vacantLocationCandidate = prayLocations.get(random.nextInt(prayLocations.size()));
         }
-        return null;
+        return vacantLocationCandidate;
     }
 
     public void printVisitorsStatus() {
