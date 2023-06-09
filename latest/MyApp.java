@@ -322,6 +322,9 @@ public class MyApp extends Application {
         Button runButton = new Button("Run Simulation");
         runButton.setStyle("-fx-font-size: " + 16 + ";");
 
+        Button stopButton = new Button("Stop Simulation");
+        stopButton.setStyle("-fx-font-size: " + 16 + ";");
+
         Line verticalLine = new Line(0, 0, 0, 150);
         verticalLine.setOpacity(0.4);
 
@@ -331,7 +334,7 @@ public class MyApp extends Application {
         timeElapsedLabelValue.setFont(new Font(16));
 
         // Add the components to the AnchorPane
-        anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton,
+        anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton, stopButton,
                 verticalLine, timeElapsedLabel, timeElapsedLabelValue);
 
         // Set the positions of the components within the AnchorPane
@@ -343,8 +346,10 @@ public class MyApp extends Application {
         AnchorPane.setLeftAnchor(speedLabel, 20.0);
         AnchorPane.setTopAnchor(speedField, 110.0);
         AnchorPane.setLeftAnchor(speedField, 20.0);
-        AnchorPane.setTopAnchor(runButton, 100.0);
+        AnchorPane.setTopAnchor(runButton, 50.0);
         AnchorPane.setLeftAnchor(runButton, 200.0);
+        AnchorPane.setTopAnchor(stopButton, 100.0);
+        AnchorPane.setLeftAnchor(stopButton, 200.0);
 
         AnchorPane.setTopAnchor(verticalLine, 10.0);
         AnchorPane.setLeftAnchor(verticalLine, 370.0);
@@ -373,6 +378,12 @@ public class MyApp extends Application {
         runButton.setOnAction(event -> {
             String[] args = { numOfVisitorsField.getText(), speedField.getText() };
             haram.main(args, this);
+
+            // consider making speed a slider with options (fastest, 2x, normal)
+        });
+        
+        stopButton.setOnAction(event -> {
+            haram.terminate();
 
             // consider making speed a slider with options (fastest, 2x, normal)
         });

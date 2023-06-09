@@ -24,6 +24,8 @@ public class Haram {
     public int timeElapsedSecs;
 
     static Random random = new Random();
+
+    public static boolean stopLoop;
     
 
 
@@ -37,6 +39,7 @@ public class Haram {
         String[] defaultGateNames = { "King Fahd", "Umra", "Fateh", "King Abdulaziz" };
         String[] defaultBuildingNames = { "King Fahd Extension", "Saudi Portico", "Massa" };
 
+        stopLoop = false;
         /*
          * ****** Naming guide *******:
          * 
@@ -210,6 +213,8 @@ public class Haram {
         Thread loopThread = new Thread(() -> {
             Haram haram = new Haram();
             MyApp gui = myApp;
+
+            
             
             // boolean maxNumReached = false;
             int maxNumVisitors = Integer.parseInt(args[0]); // Determine the number of visitors simulated
@@ -266,10 +271,22 @@ public class Haram {
                             pilgrimsSpawned));
                     break;
                 }
+
+                if (stopLoop) {
+                    System.out.println(String.format(
+                            "Interrupted - Time: %02d:%02d | current visitors %d",
+                            haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
+                    break;
+                }
+                
             }
         });
 
         loopThread.start();
+    }
+
+    public void terminate() {
+        Haram.stopLoop = true;
     }
 
     private void updateGUI(ArrayList<ImageView> prayLocationViews, ArrayList<ImageView> pathwayViews, ArrayList<ImageView> masaaViews, ImageView sahanView) {
