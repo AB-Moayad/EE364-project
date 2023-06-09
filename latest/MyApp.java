@@ -285,6 +285,11 @@ public class MyApp extends Application {
         ImageView organizer13_2View = new ImageView(organizer13_2);
         organizer13_2View.setPreserveRatio(true);
         organizer13_2View.fitHeightProperty().bind(stackPane.heightProperty());
+        
+        Image colorLegend = new Image("images/legend.png");
+        ImageView colorLegendView = new ImageView(colorLegend);
+        colorLegendView.setPreserveRatio(true);
+        colorLegendView.fitHeightProperty().bind(stackPane.heightProperty());
 
         stackPane.getChildren().addAll(area1View, area2View, area3View, area4View, area5View, area6View, area7View,
                 area8View,
@@ -295,7 +300,7 @@ public class MyApp extends Application {
                 organizer7_1View, organizer7_2View, organizer8_1View, organizer8_2View, organizer9_1View,
                 organizer9_2View, organizer10_1View, organizer10_2View,
                 organizer11_1View, organizer11_2View, organizer12_1View, organizer12_2View, organizer13_1View,
-                organizer13_2View);
+                organizer13_2View, colorLegendView);
 
         // Add the StackPane to the AnchorPane
         AnchorPane.setTopAnchor(stackPane, 0.0);
