@@ -70,7 +70,7 @@ public class Haram {
 
         // initialize pray locations
         for (String prayLocationName : defaultPrayLocationsNames) {
-            prayLocations.add(new PrayLocation(prayLocationName, 2)); // 100 visitor capacity for testing
+            prayLocations.add(new PrayLocation(prayLocationName, 2)); 
         }
 
         // initialize buildings
@@ -194,7 +194,7 @@ public class Haram {
                 pathways.get(6), buildings.get(2) };
         buildings.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(saudiPorticoIntersections)));
 
-        Commutable[] masaaIntersections = { masaaLanes.get(0), masaaLanes.get(1), buildings.get(1) };
+        Commutable[] masaaIntersections = { masaaLanes.get(0), masaaLanes.get(1) };
         buildings.get(2).setIntersections(new ArrayList<Commutable>(Arrays.asList(masaaIntersections)));
 
         // Massa lanes intersections initialization
@@ -234,14 +234,14 @@ public class Haram {
                 }
 
                 // move visitors
-                haram.moveVisitors(1); // argument is visitor speed, in 'duration units per second', default is 1
+                haram.moveVisitors(15); // argument is visitor speed, in 'duration units per second', default is 1
 
                 // TODO: organizers make decisions
 
                 System.out.println(String.format("---- Time: %02d:%02d | Visitors: %d ----", haram.timeElapsedSecs / 60,
                     haram.timeElapsedSecs % 60, haram.visitors.size()));
-                // System.out.print(" ");
-                // haram.printVisitorsStatus();
+                System.out.print(" ");
+                haram.printVisitorsStatus();
                 haram.printCapacities();
                 haram.timeElapsedSecs++;
                 
@@ -258,8 +258,6 @@ public class Haram {
                     e.printStackTrace();
                 }
 
-            //updateColor(myApp.Area1());
-            //updateColor(myApp.pathwayView1());
 
                 if ((visitorsSpawned >= maxNumVisitors) && (haram.visitors.isEmpty())) {
                     System.out.println(String.format(
@@ -279,10 +277,10 @@ public class Haram {
 
         // outer pathways
         for (int i = 0; i < outerPathways.size(); i++) {
-            if (pathways.get(i).getAvailableCapacityRatio() > 0.75) {
+            if (outerPathways.get(i).getAvailableCapacityRatio() > 0.75) {
                 adjustColor(pathwayViews.get(i), 1);
             }
-            else if (pathways.get(i).getAvailableCapacityRatio() > 0.25) {
+            else if (outerPathways.get(i).getAvailableCapacityRatio() > 0.25) {
                 adjustColor(pathwayViews.get(i), 2);
             }
             else {
@@ -425,10 +423,12 @@ public class Haram {
         // return null;
 
         PrayLocation vacantLocationCandidate = prayLocations.get(random.nextInt(prayLocations.size()));
-        while (!vacantLocationCandidate.hasSpace()) {
+        while (true) {
             vacantLocationCandidate = prayLocations.get(random.nextInt(prayLocations.size()));
+            if (vacantLocationCandidate.hasSpace()) {
+                return vacantLocationCandidate;
+            }
         }
-        return vacantLocationCandidate;
     }
 
     public void printVisitorsStatus() {
