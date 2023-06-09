@@ -1,21 +1,72 @@
-import java.util.Random;
+import java.util.ArrayList;
 
-public class Sahan extends Pathway {
-    private int stage;
+public class Sahan extends HaramTarget {
     
-    public Sahan(String Sahan){
-        super(Sahan);
+    //Instance 
+    ArrayList<Pathway> tawafPaths = new ArrayList<>();
+
+    //Constructor takes pathway name and capacity 
+    public Sahan(String name, int capacity) {
+        super();
+        setTargetName(name);
+        setCapacity(capacity);
+
+        int numberOfTawafPaths = 7;
+        for (int i = 0; i < numberOfTawafPaths; i++) {
+            tawafPaths.add(new Pathway("SahanPath#" + (i + 1), capacity / numberOfTawafPaths ));
+        }
     }
 
-    public int getStage() {
-        Random random = new Random();
-        this.stage = random.nextInt(7); // Generates a random stage between 0 and 6
-        System.out.println("now the Pilgrim is perfoming Tawaf and he is now in Stage " + stage);
-        return stage;
+    //Getters and Setters
+    @Override
+    public int getAvailableCapacity() {
+        int aggregatedAvailableCapacity = getCapacity();
+
+        for (Pathway tawafPath: tawafPaths) {
+            aggregatedAvailableCapacity -= tawafPath.getNumberOfCurrentVisitors();
+        }
+        return aggregatedAvailableCapacity;
     }
 
-    public void selectFloor(Visitor visitor, int floor) {
-        if (visitor.getDirection() == 1){
-            getCapacity();
-        }    }
+    @Override
+    public double getAvailableCapacityRatio() {
+        int aggregatedNumberOfCurrentVisitors = 0;
+        for (Pathway tawafPath: tawafPaths) {
+            aggregatedNumberOfCurrentVisitors += tawafPath.getNumberOfCurrentVisitors();
+        }
+        return (double) aggregatedNumberOfCurrentVisitors / getCapacity();
+    }
+
+
+    public Commutable findVacantTawafPath() {
+        for (Commutable tawafPath: tawafPaths) {
+            if (tawafPath.hasSpace()) {
+                return tawafPath;
+            }
+            
+        }
+        return null;
+    }
+
+    public int getDuration() {
+        return 80;
+    }
+
+    public int setDuration() {
+        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+    }
+
+    public int setCapacity() {
+        throw new UnsupportedOperationException("Unimplemented method 'setCapacity'");
+    }
+
+    public ArrayList<Commutable> getIntersections() {
+        return intersections;
+    }
+
+    public void setIntersections(ArrayList<Commutable> intersections) {
+        this.intersections = intersections;
+    }
+
+    
 }

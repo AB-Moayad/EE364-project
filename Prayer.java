@@ -1,11 +1,29 @@
+
 public class Prayer extends Visitor {
+    
+    //Constructor takes pathway
+    Prayer(Pathway pathway) {
+        super(pathway);
+        
+    }
 
-	public Prayer(){
-		super(null, null, null);
-	}
 
-	@Override
-	public void visit() {
-        System.out.println("Prayer class");
+    
+    @Override
+    public String returnStatus() {
+        return String.format("Prayer#%d in %s", getId(), getCurrentLocation().toString());
+    }
+
+    public void updateStatus() {
+        if (getCurrentLocation() instanceof Pathway || getCurrentLocation() instanceof Building) {
+            setStatus(VisitorStatus.commuting);
+        }
+        else if (getCurrentLocation() instanceof PrayLocation) {
+            setStatus(VisitorStatus.praying);
+        }
+        
+        if (completedPurpose) {
+            setStatus(VisitorStatus.exiting);
+        }
     }
 }

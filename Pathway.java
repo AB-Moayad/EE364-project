@@ -1,31 +1,46 @@
-public class Pathway {
-    private double length;
+import java.util.ArrayList;
+
+public class Pathway implements Commutable {
+    //Instances
+    private String name;
+    private int length;
     private int capacity;
-    private HaramTarget[] r_locations;
-    private HaramTarget[] l_locations;
-    private Pathway[] intersections;
-    private Organizer[] organizers;
+    private int numberOfCurrentVisitors;
+    private ArrayList<HaramTarget> r_locations = new ArrayList<>();
+    private ArrayList<HaramTarget> l_locations = new ArrayList<>();
+    private ArrayList<Commutable> intersections = new ArrayList<>();
+    private ArrayList<Organizer> organizers = new ArrayList<>();
     private Direction direction;
     private int floor;
-    private String pathwayName;
+    
+    //Constructor takes name of the pathway and max capacity 
+    public Pathway(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
 
-    public Pathway(String pathwayName) {
-        setPathwayName(pathwayName);
     }
 
-    public void setPathwayName(String pathwayName) {
-        this.pathwayName = pathwayName;
+    public void incrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors + 1) <= capacity) {
+            this.numberOfCurrentVisitors++;
+        }
     }
 
-    public String getPathwayName() {
-        return pathwayName;
+    public void decrementCurrentVisitors() {
+        if ((numberOfCurrentVisitors - 1) >= 0) {
+            this.numberOfCurrentVisitors--;
+        }
     }
 
-    public double getLength() {
+
+    //Getters & Setters
+    @Override
+    public int getDuration() {
+        length = 50;
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -33,48 +48,51 @@ public class Pathway {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = 100;
-        if (capacity >= 100) {
-            System.out.println("The place is full");
-        }
-
-        else {
-            int room = 0;
-            int space = 100 / room;
-            System.out.println("The place has:" + space + "capacity out of 50");
-        }
+    public int getAvailableCapacity() {
+        return (capacity - numberOfCurrentVisitors);
     }
 
-    public HaramTarget[] getRLocations() {
+    public double getAvailableCapacityRatio() {
+        return (double) numberOfCurrentVisitors / capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public boolean hasSpace() {
+        return (numberOfCurrentVisitors < capacity);
+    }
+
+    public ArrayList<HaramTarget> getRLocations() {
         return r_locations;
     }
 
-    public void setRLocations(HaramTarget[] r_locations) {
+    public void setRLocations(ArrayList<HaramTarget> r_locations) {
         this.r_locations = r_locations;
     }
 
-    public HaramTarget[] getLLocations() {
+    public ArrayList<HaramTarget> getLLocations() {
         return l_locations;
     }
 
-    public void setLLocations(HaramTarget[] l_locations) {
+    public void setLLocations(ArrayList<HaramTarget> l_locations) {
         this.l_locations = l_locations;
     }
 
-    public Pathway[] getIntersections() {
+    public ArrayList<Commutable> getIntersections() {
         return intersections;
     }
 
-    public void setIntersections(Pathway[] intersections) {
+    public void setIntersections(ArrayList<Commutable> intersections) {
         this.intersections = intersections;
     }
 
-    public Organizer[] getOrganizers() {
+    public ArrayList<Organizer> getOrganizers() {
         return organizers;
     }
 
-    public void setOrganizers(Organizer[] organizers) {
+    public void setOrganizers(ArrayList<Organizer> organizers) {
         this.organizers = organizers;
     }
 
@@ -94,8 +112,25 @@ public class Pathway {
         this.floor = floor;
     }
 
-    @Override
+    public int getNumberOfCurrentVisitors() {
+        return numberOfCurrentVisitors;
+    }
+
+    public void setNumberOfCurrentVisitors(int currentVisitors) {
+        this.numberOfCurrentVisitors = currentVisitors;
+    }
+
+    public int setDuration() {
+        throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+    }
+
+
     public String toString() {
-        return  getPathwayName();
+        return this.name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }
