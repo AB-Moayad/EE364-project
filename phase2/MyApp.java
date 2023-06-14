@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -300,8 +301,7 @@ public class MyApp extends Application {
         AnchorPane.setRightAnchor(stackPane, 0.0);
         anchorPane1.getChildren().add(stackPane);
 
-        // Create the second section with an AnchorPane, labels, text field, slider, and
-        // button
+        // Create the second section with an AnchorPane, labels, text field, and button
         AnchorPane anchorPane2 = new AnchorPane();
         anchorPane2.setMaxHeight(180);
         anchorPane2.setMinHeight(180);
@@ -329,9 +329,14 @@ public class MyApp extends Application {
         timeElapsedLabelValue = new Label("00:00");
         timeElapsedLabelValue.setFont(new Font(16));
 
+        TextArea textOutput = new TextArea();
+        textOutput.setMaxHeight(100);
+        textOutput.setMinWidth(650);
+        textOutput.setText("testing");
+
         // Add the components to the AnchorPane
         anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton, stopButton,
-                verticalLine, timeElapsedLabel, timeElapsedLabelValue);
+                verticalLine, timeElapsedLabel, timeElapsedLabelValue, textOutput);
 
         // Set the positions of the components within the AnchorPane
         AnchorPane.setTopAnchor(numOfVisitorsLabel, 10.0);
@@ -355,6 +360,11 @@ public class MyApp extends Application {
 
         AnchorPane.setTopAnchor(timeElapsedLabelValue, 10.0);
         AnchorPane.setLeftAnchor(timeElapsedLabelValue, 500.0);
+        
+        
+        AnchorPane.setTopAnchor(textOutput, 45.0);
+        AnchorPane.setLeftAnchor(textOutput, 400.0);
+
 
         // Add the AnchorPanes to the SplitPane
         splitPane.getItems().addAll(anchorPane1, anchorPane2);
