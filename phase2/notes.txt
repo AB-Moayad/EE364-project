@@ -1,0 +1,3 @@
+- Fixed encapsulation:
+    * added setter and getter for 'intersections' in HaramTarget, removed setter and getter for 'intersections' from children of HaramTarget
+    * Visitor: added the methods getProgressInCurrentLocation() and hasCompletedPurpose()
