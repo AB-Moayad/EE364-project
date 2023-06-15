@@ -58,9 +58,37 @@ public class MyApp extends Application {
     // tooltips
     private Tooltip area1Tooltip;
     private Tooltip area2Tooltip;
+    private Tooltip area3Tooltip;
+    private Tooltip area4Tooltip;
+    private Tooltip area5Tooltip;
+    private Tooltip area6Tooltip;
+    private Tooltip area7Tooltip;
+    private Tooltip area8Tooltip;
+    private Tooltip area9Tooltip;
+    private Tooltip area10Tooltip; 
+
+    private Tooltip pathway1Tooltip;
+    private Tooltip pathway2Tooltip;
+    private Tooltip pathway3Tooltip;
+    private Tooltip pathway4Tooltip;
+    private Tooltip pathway5Tooltip;
+    private Tooltip pathway6Tooltip;
+    
+    private Tooltip pathway7Tooltip;
+    private Tooltip pathway8Tooltip;
+    private Tooltip pathway9Tooltip;
+    private Tooltip pathway10Tooltip;
+    private Tooltip pathway11Tooltip;
+    private Tooltip pathway12Tooltip;
+    private Tooltip pathway13Tooltip;
+    
+    private Tooltip safaMarwaLaneTooltip;
+    private Tooltip marwaSafaLaneTooltip;
+    
+    private Tooltip sahanCircleTooltip;
+
 
     
-
     public MyApp() {
         haram = new Haram();
     }
@@ -318,7 +346,223 @@ public class MyApp extends Application {
         Tooltip.install(area2circle, area2Tooltip);
         tooltipsCirclesPane.getChildren().add(area2circle);
 
+        Circle area3circle = new Circle(0, 0, 10);
+        area3circle.setFill(Color.BLUE);
+        area3circle.setLayoutX(700);
+        area3circle.setLayoutY(520);
+        area3Tooltip = new Tooltip("Area 3\nCapacity: \nCurrent Visitors: \n");
+        area3Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area3circle, area3Tooltip);
+        tooltipsCirclesPane.getChildren().add(area3circle);
 
+        Circle area4circle = new Circle(0, 0, 10);
+        area4circle.setFill(Color.BLUE);
+        area4circle.setLayoutX(630);
+        area4circle.setLayoutY(570);
+        area4Tooltip = new Tooltip("Area 4\nCapacity: \nCurrent Visitors: \n");
+        area4Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area4circle, area4Tooltip);
+        tooltipsCirclesPane.getChildren().add(area4circle);
+
+        Circle area5circle = new Circle(0, 0, 10);
+        area5circle.setFill(Color.BLUE);
+        area5circle.setLayoutX(530);
+        area5circle.setLayoutY(540);
+        area5Tooltip = new Tooltip("Area 5\nCapacity: \nCurrent Visitors: \n");
+        area5Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area5circle, area5Tooltip);
+        tooltipsCirclesPane.getChildren().add(area5circle);
+
+        Circle area6circle = new Circle(0, 0, 10);
+        area6circle.setFill(Color.BLUE);
+        area6circle.setLayoutX(470);
+        area6circle.setLayoutY(450);
+        area6Tooltip = new Tooltip("Area 6\nCapacity: \nCurrent Visitors: \n");
+        area6Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area6circle, area6Tooltip);
+        tooltipsCirclesPane.getChildren().add(area6circle);
+
+        Circle area7circle = new Circle(0, 0, 10);
+        area7circle.setFill(Color.BLUE);
+        area7circle.setLayoutX(480);
+        area7circle.setLayoutY(330);
+        area7Tooltip = new Tooltip("Area 7\nCapacity: \nCurrent Visitors: \n");
+        area7Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area7circle, area7Tooltip);
+        tooltipsCirclesPane.getChildren().add(area7circle);
+
+        Circle area8circle = new Circle(0, 0, 10);
+        area8circle.setFill(Color.BLUE);
+        area8circle.setLayoutX(580);
+        area8circle.setLayoutY(280);
+        area8Tooltip = new Tooltip("Area 8\nCapacity: \nCurrent Visitors: \n");
+        area8Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area8circle, area8Tooltip);
+        tooltipsCirclesPane.getChildren().add(area8circle);
+
+        Circle area9circle = new Circle(0, 0, 10);
+        area9circle.setFill(Color.BLUE);
+        area9circle.setLayoutX(680);
+        area9circle.setLayoutY(295);
+        area9Tooltip = new Tooltip("Area 9\nCapacity: \nCurrent Visitors: \n");
+        area9Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area9circle, area9Tooltip);
+        tooltipsCirclesPane.getChildren().add(area9circle);
+
+        Circle area10circle = new Circle(0, 0, 10);
+        area10circle.setFill(Color.BLUE);
+        area10circle.setLayoutX(700);
+        area10circle.setLayoutY(400);
+        area10Tooltip = new Tooltip("Area 10\nCapacity: \nCurrent Visitors: \n");
+        area10Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(area10circle, area10Tooltip);
+        tooltipsCirclesPane.getChildren().add(area10circle);
+        
+        // pathways
+
+        Circle pathway1circle = new Circle(0, 0, 10);
+        pathway1circle.setFill(Color.BLUE);
+        pathway1circle.setLayoutX(720);
+        pathway1circle.setLayoutY(610);
+        pathway1Tooltip = new Tooltip("Pathway 1\nCapacity: \nCurrent Visitors: \n");
+        pathway1Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway1circle, pathway1Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway1circle);
+
+        Circle pathway2circle = new Circle(0, 0, 10);
+        pathway2circle.setFill(Color.BLUE);
+        pathway2circle.setLayoutX(570);
+        pathway2circle.setLayoutY(650);
+        pathway2Tooltip = new Tooltip("Pathway 2\nCapacity: \nCurrent Visitors: \n");
+        pathway2Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway2circle, pathway2Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway2circle);
+
+        Circle pathway3circle = new Circle(0, 0, 10);
+        pathway3circle.setFill(Color.BLUE);
+        pathway3circle.setLayoutX(300);
+        pathway3circle.setLayoutY(630);
+        pathway3Tooltip = new Tooltip("Pathway 3\nCapacity: \nCurrent Visitors: \n");
+        pathway3Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway3circle, pathway3Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway3circle);
+
+        Circle pathway4circle = new Circle(0, 0, 10);
+        pathway4circle.setFill(Color.BLUE);
+        pathway4circle.setLayoutX(350);
+        pathway4circle.setLayoutY(380);
+        pathway4Tooltip = new Tooltip("Pathway 4\nCapacity: \nCurrent Visitors: \n");
+        pathway4Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway4circle, pathway4Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway4circle);
+
+        Circle pathway5circle = new Circle(0, 0, 10);
+        pathway5circle.setFill(Color.BLUE);
+        pathway5circle.setLayoutX(460);
+        pathway5circle.setLayoutY(210);
+        pathway5Tooltip = new Tooltip("Pathway 5\nCapacity: \nCurrent Visitors: \n");
+        pathway5Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway5circle, pathway5Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway5circle);
+
+        Circle pathway6circle = new Circle(0, 0, 10);
+        pathway6circle.setFill(Color.BLUE);
+        pathway6circle.setLayoutX(660);
+        pathway6circle.setLayoutY(190);
+        pathway6Tooltip = new Tooltip("Pathway 6\nCapacity: \nCurrent Visitors: \n");
+        pathway6Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway6circle, pathway6Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway6circle);
+
+        Circle pathway7circle = new Circle(0, 0, 8);
+        pathway7circle.setFill(Color.BLUE);
+        pathway7circle.setLayoutX(645);
+        pathway7circle.setLayoutY(500);
+        pathway7Tooltip = new Tooltip("Pathway 7\nCapacity: \nCurrent Visitors: \n");
+        pathway7Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway7circle, pathway7Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway7circle);
+
+        Circle pathway8circle = new Circle(0, 0, 8);
+        pathway8circle.setFill(Color.BLUE);
+        pathway8circle.setLayoutX(590);
+        pathway8circle.setLayoutY(520);
+        pathway8Tooltip = new Tooltip("Pathway 8\nCapacity: \nCurrent Visitors: \n");
+        pathway8Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway8circle, pathway8Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway8circle);
+
+        Circle pathway9circle = new Circle(0, 0, 8);
+        pathway9circle.setFill(Color.BLUE);
+        pathway9circle.setLayoutX(540);
+        pathway9circle.setLayoutY(480);
+        pathway9Tooltip = new Tooltip("Pathway 9\nCapacity: \nCurrent Visitors: \n");
+        pathway9Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway9circle, pathway9Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway9circle);
+
+        Circle pathway10circle = new Circle(0, 0, 8);
+        pathway10circle.setFill(Color.BLUE);
+        pathway10circle.setLayoutX(520);
+        pathway10circle.setLayoutY(410);
+        pathway10Tooltip = new Tooltip("Pathway 10\nCapacity: \nCurrent Visitors: \n");
+        pathway10Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway10circle, pathway10Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway10circle);
+
+        Circle pathway11circle = new Circle(0, 0, 8);
+        pathway11circle.setFill(Color.BLUE);
+        pathway11circle.setLayoutX(560);
+        pathway11circle.setLayoutY(360);
+        pathway11Tooltip = new Tooltip("Pathway 11\nCapacity: \nCurrent Visitors: \n");
+        pathway11Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway11circle, pathway11Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway11circle);
+
+        Circle pathway12circle = new Circle(0, 0, 8);
+        pathway12circle.setFill(Color.BLUE);
+        pathway12circle.setLayoutX(630);
+        pathway12circle.setLayoutY(340);
+        pathway12Tooltip = new Tooltip("Pathway 12\nCapacity: \nCurrent Visitors: \n");
+        pathway12Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway12circle, pathway12Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway12circle);
+
+        Circle pathway13circle = new Circle(0, 0, 8);
+        pathway13circle.setFill(Color.BLUE);
+        pathway13circle.setLayoutX(680);
+        pathway13circle.setLayoutY(470);
+        pathway13Tooltip = new Tooltip("Pathway 13\nCapacity: \nCurrent Visitors: \n");
+        pathway13Tooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(pathway13circle, pathway13Tooltip);
+        tooltipsCirclesPane.getChildren().add(pathway13circle);
+        
+        Circle safaMarwaLaneCircle = new Circle(0, 0, 8);
+        safaMarwaLaneCircle.setFill(Color.BLUE);
+        safaMarwaLaneCircle.setLayoutX(750);
+        safaMarwaLaneCircle.setLayoutY(290);
+        safaMarwaLaneTooltip = new Tooltip("Safa-Marwa\nCapacity: \nCurrent Visitors: \n");
+        safaMarwaLaneTooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(safaMarwaLaneCircle, safaMarwaLaneTooltip);
+        tooltipsCirclesPane.getChildren().add(safaMarwaLaneCircle);
+        
+        Circle marwaSafaLaneCircle = new Circle(0, 0, 8);
+        marwaSafaLaneCircle.setFill(Color.BLUE);
+        marwaSafaLaneCircle.setLayoutX(725);
+        marwaSafaLaneCircle.setLayoutY(290);
+        marwaSafaLaneTooltip = new Tooltip("Marwa-Safa\nCapacity: \nCurrent Visitors: \n");
+        marwaSafaLaneTooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(marwaSafaLaneCircle, marwaSafaLaneTooltip);
+        tooltipsCirclesPane.getChildren().add(marwaSafaLaneCircle);
+        
+        Circle sahanCircle = new Circle(0, 0, 10);
+        sahanCircle.setFill(Color.BLUE);
+        sahanCircle.setLayoutX(610);
+        sahanCircle.setLayoutY(430);
+        sahanCircleTooltip = new Tooltip("Sahan\nCapacity: \nCurrent Visitors: \n");
+        sahanCircleTooltip.setStyle("-fx-font-size: " + 16 + ";");
+        Tooltip.install(sahanCircle, sahanCircleTooltip);
+        tooltipsCirclesPane.getChildren().add(sahanCircle);
 
 
         stackPane.getChildren().addAll(area1View, area2View, area3View, area4View, area5View, area6View, area7View,
@@ -370,7 +614,8 @@ public class MyApp extends Application {
         textOutput = new TextArea();
         textOutput.setMaxHeight(100);
         textOutput.setMinWidth(650);
-        textOutput.setText("testing");
+        textOutput.setFont(javafx.scene.text.Font.font("Monospaced", 14));
+        textOutput.setText("Run simulation...");
 
         // Add the components to the AnchorPane
         anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton, stopButton,
@@ -407,29 +652,19 @@ public class MyApp extends Application {
         // Add the AnchorPanes to the SplitPane
         splitPane.getItems().addAll(anchorPane1, anchorPane2);
 
-        // ColorAdjust defaultColor = new ColorAdjust();
-        // defaultColor.setHue(0);
-
-        // ColorAdjust blueToRed = new ColorAdjust();
-        // blueToRed.setHue(0.8);
-        // area1View.setEffect(blueToRed); // changes color to red
-
-        // ColorAdjust blueToYellow = new ColorAdjust();
-        // blueToYellow.setHue(0.999);
-        // area2View.setEffect(blueToYellow); // changes color to yellow
 
         // Control the UI
         runButton.setOnAction(event -> {
             String[] args = { numOfVisitorsField.getText(), speedField.getText() };
             haram.main(args, this);
+            textOutput.clear();
 
-            // consider making speed a slider with options (fastest, 2x, normal)
         });
         
         stopButton.setOnAction(event -> {
             haram.terminate();
 
-        //     // consider making speed a slider with options (fastest, 2x, normal)
+
         });
 
         // Create the Scene and set it on the Stage
@@ -575,9 +810,37 @@ public class MyApp extends Application {
 
     public ArrayList<Tooltip> getPrayLocationTooltips() {
         ArrayList<Tooltip> prayLocationTooltips = new ArrayList<>();
-        Tooltip[] prayLocationTooltipsArray = {area1Tooltip, area2Tooltip};
+        Tooltip[] prayLocationTooltipsArray = {area1Tooltip, area2Tooltip,area3Tooltip,area4Tooltip,area5Tooltip,area6Tooltip,area7Tooltip,
+        area8Tooltip,area9Tooltip,area10Tooltip};
         prayLocationTooltips.addAll(Arrays.asList(prayLocationTooltipsArray));
         return prayLocationTooltips;
+    }
+
+    public ArrayList<Tooltip> getOuterPathwaysTooltips () {
+        ArrayList<Tooltip> outerPathwaysTooltips = new ArrayList<>();
+        Tooltip[] outerPathwaysTooltipsArray = {pathway1Tooltip, pathway2Tooltip, pathway3Tooltip, pathway4Tooltip, 
+        pathway5Tooltip, pathway6Tooltip};
+        outerPathwaysTooltips.addAll(Arrays.asList(outerPathwaysTooltipsArray));
+        return outerPathwaysTooltips;
+    }
+    
+    public ArrayList<Tooltip> getInnerPathwaysTooltips () {
+        ArrayList<Tooltip> innerPathwaysTooltips = new ArrayList<>();
+        Tooltip[] innerPathwaysTooltipsArray = {pathway7Tooltip, pathway8Tooltip, pathway9Tooltip, 
+        pathway10Tooltip, pathway11Tooltip, pathway12Tooltip, pathway13Tooltip};
+        innerPathwaysTooltips.addAll(Arrays.asList(innerPathwaysTooltipsArray));
+        return innerPathwaysTooltips;
+    }
+    
+    public ArrayList<Tooltip> getMassaLanesTooltips () {
+        ArrayList<Tooltip> MassaLanesTooltips = new ArrayList<>();
+        Tooltip[] MassaLanesTooltipsArray = {safaMarwaLaneTooltip, marwaSafaLaneTooltip};
+        MassaLanesTooltips.addAll(Arrays.asList(MassaLanesTooltipsArray));
+        return MassaLanesTooltips;
+    }
+
+    public Tooltip getSahanCircleTooltip() {
+        return sahanCircleTooltip;
     }
 
 

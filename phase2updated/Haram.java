@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.tools.Tool;
 
 import javafx.application.Platform;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
@@ -65,32 +66,32 @@ public class Haram {
 
         // initialize pray locations
         for (String prayLocationName : defaultPrayLocationsNames) {
-            prayLocations.add(new PrayLocation(prayLocationName, 2)); // 100 visitor capacity for testing
+            prayLocations.add(new PrayLocation(prayLocationName, 10));
         }
 
         // initialize buildings
         for (String buildingName : defaultBuildingNames) {
-            buildings.add(new Building(buildingName, 2));
+            buildings.add(new Building(buildingName, 10));
         }
 
         // initialize outer pathways
         for (String pathwayName : defaultOuterPathways) {
-            outerPathways.add(new Pathway(pathwayName, 2));
+            outerPathways.add(new Pathway(pathwayName, 10));
         }
 
         // initialize some inner pathways
         for (String pathwayName : defaultInnerPathways) {
-            pathways.add(new Pathway(pathwayName, 2));
+            pathways.add(new Pathway(pathwayName, 10));
         }
 
         // initialize Massa objects
         for (int floorCount = 1; floorCount <= 1; floorCount++) {
-            masaaLanes.add(new Masaa("Safa-Marwa_floor" + floorCount, 2));
-            masaaLanes.add(new Masaa("Marwa-Safa_floor" + floorCount, 2));
+            masaaLanes.add(new Masaa("Safa-Marwa_floor" + floorCount, 10));
+            masaaLanes.add(new Masaa("Marwa-Safa_floor" + floorCount, 10));
         }
 
         // initialize Tawaf Sahan
-        sahan = new Sahan("Tawaf Sahan", 7 * 2);
+        sahan = new Sahan("Tawaf Sahan", 7 * 10);
 
         /* INTERSECTIONS */
 
@@ -246,7 +247,7 @@ public class Haram {
                 
                 
                 haram.updateGUI(gui.getPrayLocationsViews(), gui.getPathwaysViews(), gui.getMasaaViews(), gui.getSahanView());
-                haram.updateTooltips(gui.getPrayLocationTooltips());
+                haram.updateTooltips(gui.getPrayLocationTooltips(), gui.getOuterPathwaysTooltips(), gui.getInnerPathwaysTooltips(), gui.getMassaLanesTooltips(), gui.getSahanCircleTooltip());
                 
                 // Control the speed of the simulation
                 try {
@@ -261,6 +262,7 @@ public class Haram {
                             haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, maxNumVisitors, prayersSpawned,
                             pilgrimsSpawned));
                     haram.printAnalytics();
+                    haram.printAnalyticsTextArea(gui.getTextOutput());
                     break;
                 }
 
@@ -269,6 +271,7 @@ public class Haram {
                             "Interrupted - Time: %02d:%02d | current visitors %d",
                             haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
                     haram.printAnalytics();
+                    haram.printAnalyticsTextArea(gui.getTextOutput());
                     break;
                 }
             }
@@ -280,7 +283,8 @@ public class Haram {
         Haram.stopLoop = true;
     }
 
-    private void printAnalytics() {
+    private void printAnalyticsTextArea(TextArea textBox) {
+        String finalOutput = "";
         // longest staying visitor; duration of stay
         Visitor longestStayingVisitor = visitorsExited.get(0);
         for (Visitor visitor : visitorsExited) {
@@ -288,8 +292,18 @@ public class Haram {
                 longestStayingVisitor = visitor;
             }
         }
-        System.out.printf("Visitor#%d stayed the longest, total time: %02d:%02d",
+        finalOutput += String.format("Visitor#%d stayed the longest, total time: %02d:%02d",
         longestStayingVisitor.getId(), longestStayingVisitor.getSecondsSpentInHaram() / 60, longestStayingVisitor.getSecondsSpentInHaram() % 60);
+
+        // average pilgrim stay time
+        int totalNumberOfSecondsSpent = 0;
+        for (Visitor visitor : visitorsExited) {
+            if (visitor instanceof Pilgrim) {
+                totalNumberOfSecondsSpent += visitor.getSecondsSpentInHaram();
+            }
+        } 
+        int averageNumberOfSeconds = totalNumberOfSecondsSpent / visitorsExited.size();;
+        finalOutput += String.format("\nAverage time spent (All Visitors): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
 
         // average pilgrim stay time
         int totalNumberOfSecondsSpentByPilgrims = 0;
@@ -300,7 +314,66 @@ public class Haram {
                 numberOfPilgrims++;
             }
         } 
-        int averageNumberOfSeconds = totalNumberOfSecondsSpentByPilgrims / numberOfPilgrims;
+        averageNumberOfSeconds = totalNumberOfSecondsSpentByPilgrims / numberOfPilgrims;
+        finalOutput += String.format("\nAverage time spent (Pilgrims): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
+        
+        // average prayer stay time
+        int totalNumberOfSecondsSpentByPrayers = 0;
+        int numberOfPrayers = 0;
+        for (Visitor visitor : visitorsExited) {
+            if (visitor instanceof Prayer) {
+                totalNumberOfSecondsSpentByPrayers += visitor.getSecondsSpentInHaram();
+                numberOfPrayers++;
+            }
+        } 
+        averageNumberOfSeconds = totalNumberOfSecondsSpentByPrayers / numberOfPrayers;
+        finalOutput += String.format("\nAverage time spent (Prayers): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
+        
+
+        // duration of stay for all visitors
+        finalOutput += String.format("\n%12s | %5s", "------------", "-----");
+        finalOutput += String.format("\n%-12s | %5s", "Visitor#ID", "Time");
+        finalOutput += String.format("\n%12s | %5s\n", "------------", "-----");
+
+        for (Visitor visitor : visitorsExited) {
+            finalOutput += String.format("%-12s | %5s\n", "Visitor#" + visitor.getId(), String.format("%02d:%02d", visitor.getSecondsSpentInHaram() / 60, visitor.getSecondsSpentInHaram() % 60));
+        }
+
+        textBox.setText(finalOutput);
+    }
+
+    private void printAnalytics() {
+        // longest staying visitor; duration of stay
+        Visitor longestStayingVisitor = visitorsExited.get(0);
+        for (Visitor visitor : visitorsExited) {
+            if (visitor.getSecondsSpentInHaram() > longestStayingVisitor.getSecondsSpentInHaram()) {
+                longestStayingVisitor = visitor;
+            }
+        }
+
+        System.out.printf("Visitor#%d stayed the longest, total time: %02d:%02d",
+        longestStayingVisitor.getId(), longestStayingVisitor.getSecondsSpentInHaram() / 60, longestStayingVisitor.getSecondsSpentInHaram() % 60);
+
+        // average pilgrim stay time
+        int totalNumberOfSecondsSpent = 0;
+        for (Visitor visitor : visitorsExited) {
+            if (visitor instanceof Pilgrim) {
+                totalNumberOfSecondsSpent += visitor.getSecondsSpentInHaram();
+            }
+        } 
+        int averageNumberOfSeconds = totalNumberOfSecondsSpent / visitorsExited.size();;
+        System.out.printf("\nAverage time spent (All Visitors): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
+
+        // average pilgrim stay time
+        int totalNumberOfSecondsSpentByPilgrims = 0;
+        int numberOfPilgrims = 0;
+        for (Visitor visitor : visitorsExited) {
+            if (visitor instanceof Pilgrim) {
+                totalNumberOfSecondsSpentByPilgrims += visitor.getSecondsSpentInHaram();
+                numberOfPilgrims++;
+            }
+        } 
+        averageNumberOfSeconds = totalNumberOfSecondsSpentByPilgrims / numberOfPilgrims;
         System.out.printf("\nAverage time spent (Pilgrims): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
         
         // average prayer stay time
@@ -315,11 +388,21 @@ public class Haram {
         averageNumberOfSeconds = totalNumberOfSecondsSpentByPrayers / numberOfPrayers;
         System.out.printf("\nAverage time spent (Prayers): %02d:%02d", averageNumberOfSeconds / 60, averageNumberOfSeconds % 60);
         
+
+        // duration of stay for all visitors
+        System.out.printf("\n%12s | %5s", "------------", "-----");
+        System.out.printf("\n%-12s | %5s", "Visitor#ID", "Time");
+        System.out.printf("\n%12s | %5s\n", "------------", "-----");
+        for (Visitor visitor : visitorsExited) {
+            System.out.printf("%-12s | %5s\n", "Visitor#" + visitor.getId(), String.format("%02d:%02d", visitor.getSecondsSpentInHaram() / 60, visitor.getSecondsSpentInHaram() % 60));
+        }
+
         // most visited location?
         // duration of time for which locations were completely full
     }
 
-    private void updateTooltips (ArrayList<Tooltip> prayLocationsTooltips) {
+    private void updateTooltips (ArrayList<Tooltip> prayLocationsTooltips, ArrayList<Tooltip> outerPathwaysTooltips,
+    ArrayList<Tooltip> innerPathwaysTooltips, ArrayList<Tooltip> massaLanesTooltips, Tooltip sahanTooltip) {
         for (int i = 0; i < prayLocationsTooltips.size(); i++) {
             Tooltip locationTooltip = prayLocationsTooltips.get(i);
             PrayLocation location = prayLocations.get(i);
@@ -327,6 +410,35 @@ public class Haram {
             + "\nCapacity: " + location.getCapacity()
             + "\nCurrent Visitors: " + location.getNumberOfCurrentVisitors());
         }
+
+        for (int i = 0; i < outerPathwaysTooltips.size(); i++) {
+            Tooltip locationTooltip = outerPathwaysTooltips.get(i);
+            Pathway pathway = outerPathways.get(i);
+            locationTooltip.setText("-" + pathway.getName() + "-"
+            + "\nCapacity: " + pathway.getCapacity()
+            + "\nCurrent Visitors: " + pathway.getNumberOfCurrentVisitors());
+        }
+        
+        for (int i = 0; i < innerPathwaysTooltips.size(); i++) {
+            Tooltip locationTooltip = innerPathwaysTooltips.get(i);
+            Pathway pathway = pathways.get(i);
+            locationTooltip.setText("-" + pathway.getName() + "-"
+            + "\nCapacity: " + pathway.getCapacity()
+            + "\nCurrent Visitors: " + pathway.getNumberOfCurrentVisitors());
+        }
+        
+        for (int i = 0; i < massaLanesTooltips.size(); i++) {
+            Tooltip locationTooltip = massaLanesTooltips.get(i);
+            Pathway pathway = masaaLanes.get(i);
+            locationTooltip.setText("-" + pathway.getName() + "-"
+            + "\nCapacity: " + pathway.getCapacity()
+            + "\nCurrent Visitors: " + pathway.getNumberOfCurrentVisitors());
+        }
+
+        sahanTooltip.setText("-" + sahan.getName() + "-"
+            + "\nCapacity: " + sahan.getCapacity()
+            + "\nCurrent Visitors: " + sahan.getNumberOfCurrentVisitors());
+        
     }
 
     private void updateGUI(ArrayList<ImageView> prayLocationViews, ArrayList<ImageView> pathwayViews, ArrayList<ImageView> masaaViews, ImageView sahanView) {
