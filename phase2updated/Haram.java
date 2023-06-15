@@ -24,6 +24,8 @@ public class Haram {
     private ArrayList<Visitor> visitorsExited = new ArrayList<>();
     private int timeElapsedSecs;
     
+    private static boolean isPaused = false; // Flag to indicate if the loop should be paused
+
     // genral random varible
     static Random random = new Random();
 
@@ -207,6 +209,7 @@ public class Haram {
                 pathways.get(6) };
         masaaLanes.get(1).setIntersections(new ArrayList<Commutable>(Arrays.asList(massaLane2Intersections)));
     }
+    
     // Main loop
     public static void main(String[] args, MyApp myApp) {
         Thread loopThread = new Thread(() -> {
@@ -218,72 +221,85 @@ public class Haram {
             int pilgrimsSpawned = 0;
 
             while (true) {
-                
-                // spawn new visitors; prayers and pilgrims
-                for (Pathway pathway : haram.outerPathways) {
-                    if ((haram.visitors.size() < maxNumVisitors) && (visitorsSpawned < maxNumVisitors)) {
-                        haram.visitors.add(haram.spawnVisitor(pathway));
-                        pathway.incrementCurrentVisitors();
-                        if (haram.visitors.get(haram.visitors.size() - 1) instanceof Prayer)
-                            prayersSpawned++;
-                        else
-                            pilgrimsSpawned++;
-                        visitorsSpawned++;
+                if (!isPaused) {
+                    // spawn new visitors; prayers and pilgrims
+                    for (Pathway pathway : haram.outerPathways) {
+                        if ((haram.visitors.size() < maxNumVisitors) && (visitorsSpawned < maxNumVisitors)) {
+                            haram.visitors.add(haram.spawnVisitor(pathway));
+                            pathway.incrementCurrentVisitors();
+                            if (haram.visitors.get(haram.visitors.size() - 1) instanceof Prayer)
+                                prayersSpawned++;
+                            else
+                                pilgrimsSpawned++;
+                            visitorsSpawned++;
+                        }
                     }
-                }
 
-                // move visitors
-                haram.moveVisitors(15); // argument is visitor speed, in 'duration units per second', default is 1
-                
-                System.out.println(String.format("\n---- Time: %02d:%02d | Visitors: %d ----", haram.timeElapsedSecs / 60,
-                    haram.timeElapsedSecs % 60, haram.visitors.size()));
+                    // move visitors
+                    haram.moveVisitors(15); // argument is visitor speed, in 'duration units per second', default is 1
 
-                haram.printVisitorsStatus();
-                haram.printCapacities();
-                haram.timeElapsedSecs++;
-                
-                Platform.runLater(() -> gui.setTimeElapsedLabelValue(String.format("%02d:%02d", haram.timeElapsedSecs / 60,
-                haram.timeElapsedSecs % 60)));
-                
-                
-                haram.updateGUI(gui.getPrayLocationsViews(), gui.getPathwaysViews(), gui.getMasaaViews(), gui.getSahanView());
-                haram.updateTooltips(gui.getPrayLocationTooltips(), gui.getOuterPathwaysTooltips(), gui.getInnerPathwaysTooltips(), gui.getMassaLanesTooltips(), gui.getSahanCircleTooltip());
-                
-                // Control the speed of the simulation
-                try {
-                    Thread.sleep(Long.parseLong(args[1])); // adjust argument to control simulation delay
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    System.out.println(String.format("\n---- Time: %02d:%02d | Visitors: %d ----", haram.timeElapsedSecs / 60,
+                            haram.timeElapsedSecs % 60, haram.visitors.size()));
 
-                if ((visitorsSpawned >= maxNumVisitors) && (haram.visitors.isEmpty())) {
-                    System.out.println(String.format(
-                            "Finished - Time: %02d:%02d | All %d visitors have exited.\n %d prayers\n %d pilgrims",
-                            haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, maxNumVisitors, prayersSpawned,
-                            pilgrimsSpawned));
-                    haram.printAnalytics();
-                    haram.printAnalyticsTextArea(gui.getTextOutput());
-                    break;
-                }
+                    haram.printVisitorsStatus();
+                    haram.printCapacities();
+                    haram.timeElapsedSecs++;
 
-                 if (stopLoop) {
-                    System.out.println(String.format(
-                            "Interrupted - Time: %02d:%02d | current visitors %d",
-                            haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
-                    haram.printAnalytics();
-                    haram.printAnalyticsTextArea(gui.getTextOutput());
-                    break;
+                    Platform.runLater(() -> gui.setTimeElapsedLabelValue(String.format("%02d:%02d", haram.timeElapsedSecs / 60,
+                            haram.timeElapsedSecs % 60)));
+
+                    haram.updateGUI(gui.getPrayLocationsViews(), gui.getPathwaysViews(), gui.getMasaaViews(), gui.getSahanView());
+                    haram.updateTooltips(gui.getPrayLocationTooltips(), gui.getOuterPathwaysTooltips(), gui.getInnerPathwaysTooltips(), gui.getMassaLanesTooltips(), gui.getSahanCircleTooltip());
+
+                    // Control the speed of the simulation
+                    try {
+                        Thread.sleep(Long.parseLong(args[1])); // adjust argument to control simulation delay
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if ((visitorsSpawned >= maxNumVisitors) && (haram.visitors.isEmpty())) {
+                        System.out.println(String.format(
+                                "Finished - Time: %02d:%02d | All %d visitors have exited.\n %d prayers\n %d pilgrims",
+                                haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, maxNumVisitors, prayersSpawned,
+                                pilgrimsSpawned));
+                        haram.printAnalytics();
+                        haram.printAnalyticsTextArea(gui.getTextOutput());
+                        break;
+                    }
+
+                    if (stopLoop) {
+                        System.out.println(String.format(
+                                "Interrupted - Time: %02d:%02d | current visitors %d",
+                                haram.timeElapsedSecs / 60, haram.timeElapsedSecs % 60, haram.visitors.size()));
+                        haram.printAnalytics();
+                        haram.printAnalyticsTextArea(gui.getTextOutput());
+                        break;
+                    }
+                } else {
+                    try {
+                        Thread.sleep(0); // Pause the loop for a short duration
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
         loopThread.start();
     }
+
+    public void pauseResume() {
+        Haram.isPaused = !Haram.isPaused;
+    }
+
     public void terminate() {
         Haram.stopLoop = true;
+        Haram.isPaused = false;
     }
 
     private void printAnalyticsTextArea(TextArea textBox) {
+        if (visitorsExited.isEmpty()) return;
         String finalOutput = "";
         // longest staying visitor; duration of stay
         Visitor longestStayingVisitor = visitorsExited.get(0);
@@ -343,6 +359,7 @@ public class Haram {
     }
 
     private void printAnalytics() {
+        if (visitorsExited.isEmpty()) return;
         // longest staying visitor; duration of stay
         Visitor longestStayingVisitor = visitorsExited.get(0);
         for (Visitor visitor : visitorsExited) {

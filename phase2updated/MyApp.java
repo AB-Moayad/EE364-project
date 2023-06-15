@@ -600,7 +600,7 @@ public class MyApp extends Application {
         Button runButton = new Button("Run Simulation");
         runButton.setStyle("-fx-font-size: " + 16 + ";");
 
-        Button stopButton = new Button("Stop Simulation");
+        Button stopButton = new Button("Terminate Simulation");
         stopButton.setStyle("-fx-font-size: " + 16 + ";");
 
         Line verticalLine = new Line(0, 0, 0, 150);
@@ -617,9 +617,12 @@ public class MyApp extends Application {
         textOutput.setFont(javafx.scene.text.Font.font("Monospaced", 14));
         textOutput.setText("Run simulation...");
 
+        Button pauseButton = new Button("Pause / Resume");
+        stopButton.setStyle("-fx-font-size: " + 16 + ";");
+
         // Add the components to the AnchorPane
         anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton, stopButton,
-                verticalLine, timeElapsedLabel, timeElapsedLabelValue, textOutput);
+                verticalLine, timeElapsedLabel, timeElapsedLabelValue, textOutput, pauseButton);
 
         // Set the positions of the components within the AnchorPane
         AnchorPane.setTopAnchor(numOfVisitorsLabel, 10.0);
@@ -634,6 +637,9 @@ public class MyApp extends Application {
         AnchorPane.setLeftAnchor(runButton, 200.0);
         AnchorPane.setTopAnchor(stopButton, 100.0);
         AnchorPane.setLeftAnchor(stopButton, 200.0);
+        
+        AnchorPane.setTopAnchor(pauseButton, 140.0);
+        AnchorPane.setLeftAnchor(pauseButton, 200.0);
 
         AnchorPane.setTopAnchor(verticalLine, 10.0);
         AnchorPane.setLeftAnchor(verticalLine, 370.0);
@@ -663,8 +669,10 @@ public class MyApp extends Application {
         
         stopButton.setOnAction(event -> {
             haram.terminate();
-
-
+        });
+        
+        pauseButton.setOnAction(event -> {
+            haram.pauseResume();
         });
 
         // Create the Scene and set it on the Stage
