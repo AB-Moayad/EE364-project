@@ -618,7 +618,7 @@ public class MyApp extends Application {
         textOutput.setText("Run simulation...");
 
         Button pauseButton = new Button("Pause / Resume");
-        stopButton.setStyle("-fx-font-size: " + 16 + ";");
+        pauseButton.setStyle("-fx-font-size: " + 16 + ";");
 
         // Add the components to the AnchorPane
         anchorPane2.getChildren().addAll(numOfVisitorsLabel, numOfVisitorsField, speedLabel, speedField, runButton, stopButton,
