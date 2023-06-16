@@ -1,10 +1,9 @@
-
+//Java Imports
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import javax.tools.Tool;
-
+//JavaFx imports
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
@@ -13,7 +12,7 @@ import javafx.scene.image.ImageView;
 
 
 public class Haram {
-    //Intacnes
+    //Instances
     private ArrayList<PrayLocation> prayLocations = new ArrayList<>();
     private ArrayList<Pathway> pathways = new ArrayList<>();
     private ArrayList<Pathway> outerPathways = new ArrayList<>();
@@ -26,7 +25,7 @@ public class Haram {
     
     private static boolean isPaused = false; // Flag to indicate if the loop should be paused
 
-    // genral random varible
+    //Genral random varible
     static Random random = new Random();
 
     private static boolean stopLoop;
